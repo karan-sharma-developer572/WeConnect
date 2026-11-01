@@ -1,1 +1,2 @@
 # WeConnect
+WeConnect is a platform designed to keep elderly dementia patients and their families securely connected. We deliver comprehensive monthly reports combining caretaker insights with data analysis from our specialized cognitive games. To support daily care, the platform also tracks timely medication adherence and routine exercise practices.
