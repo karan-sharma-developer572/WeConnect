@@ -1,0 +1,675 @@
+/* ---------- 1. VARIABLES & BASE RESET ---------- */
+
+/* Colors are stored as variables so you can re-theme in one place */
+:root {
+  --page:   #f3f5f8;   /* light grey page background around the panel */
+  --teal:   #053f40;   /* main dark teal */
+  --yellow: #fde78a;   /* accent for the script headline words */
+  --white:  #ffffff;
+  --muted:  #9db8b8;   /* soft grey-teal for inactive nav links */
+}
+
+/* Include padding/border inside element widths (easier sizing) */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--white);
+  font-family: Roboto, system-ui, sans-serif;
+  /* clamp(min, preferred, max): padding grows with screen but stays limited */
+  
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* Visible outline for keyboard users (accessibility) */
+a:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+
+
+/* ---------- 2. MAIN PANEL & BACKGROUND ---------- */
+
+.panel {
+  position: relative;            /* lets the waves sit behind the content */
+  max-width: fit-content;
+  min-height: 740px;
+  margin: 0 auto;                /* centers the panel */
+  padding: 0 48px;
+  overflow: hidden;              /* clips anything poking out of the rounded corners */
+  /* Solid teal that lightens slightly at the bottom */
+  background: linear-gradient(180deg, var(--teal) 0%, var(--teal) 70%, #0d5557 100%);
+}
+
+/* Faint curved lines across the lower half, made with a repeating gradient */
+.waves {
+  position: absolute;
+  inset: auto -10% 0 -10%;       /* stretch wider than the panel, pin to bottom */
+  height: 60%;
+  opacity: .35;
+  pointer-events: none;          /* never blocks clicks */
+  background: repeating-radial-gradient(
+    ellipse 120% 60% at 50% 130%,
+    transparent 0 14px,
+    rgba(120, 200, 190, .18) 15px 16px
+  );
+}
+
+
+/* ---------- 3. NAVIGATION ---------- */
+
+nav {
+  position: relative;            /* sits above the waves */
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 32px 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: Pacifico, cursive;
+  font-size: 30px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  margin: 0 auto 0 48px;         /* auto right margin pushes the button to the far right */
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--muted);
+}
+.nav-links a:hover { color: var(--white); }
+
+/* Current page: white, bolder, with a small dot before it */
+.nav-links a.active { color: var(--white); font-weight: 500; }
+.nav-links a.active::before {
+  content: "";
+  display: inline-block;
+  width: 6px; height: 6px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: var(--white);
+  vertical-align: middle;
+}
+
+
+/* ---------- 4. BUTTONS ---------- */
+
+/* White pill-shaped button with a round arrow icon on the right */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 5px 5px 5px 20px;
+  border: 0;
+  border-radius: 999px;          /* huge radius = perfect pill shape */
+  background: var(--white);
+  color: var(--teal);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform .15s;
+}
+.btn:hover { transform: translateY(-2px); }   /* small lift on hover */
+
+/* The circular arrow */
+.btn i {
+  display: grid;
+  place-items: center;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: var(--white);
+  font-style: normal;
+}
+
+/* Larger variant used for "Book appointment" */
+.btn.lg { font-size: 17px; padding: 6px 6px 6px 20px; }
+.btn.lg i { width: 38px; height: 38px; }
+
+
+/* ---------- 5. HERO (TEXT COLUMN) ---------- */
+
+/* Two-column layout: text (1.05 parts) | images (1 part) */
+.hero {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  align-items: center;
+  gap: 20px;
+  padding-top: 30px;
+  padding-bottom: 50px;
+}
+
+/* "Your #1 Care Partner" pill */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px 7px 10px;
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .05);   /* translucent white on teal */
+  font-size: 14px;
+  font-style: italic;
+}
+/* The little round star icon inside the badge */
+.badge b {
+  display: grid;
+  place-items: center;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: #2c6b5a;
+  color: var(--yellow);
+  font-size: 11px;
+  font-style: normal;
+}
+
+h1 {
+  margin: 22px 0 18px;
+  font-size: clamp(38px, 5.2vw, 56px);   /* fluid size: shrinks on small screens */
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -.01em;
+}
+/* Yellow script words ("Healthcare Solutions") */
+h1 em {
+  font-family: Pacifico, cursive;
+  font-style: normal;                    /* Pacifico is already slanted */
+  font-weight: 400;
+  line-height: 1;
+  color: var(--yellow);
+}
+
+.lead {
+  max-width: 440px;                      /* keeps lines short and readable */
+  margin: 0 0 36px;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: #e6f0ef;
+}
+
+
+/* ---------- 6. HERO (CAPSULE IMAGE COLLAGE) ---------- */
+
+/* A fixed-size box; each capsule is positioned inside it by its CENTER point */
+.cluster {
+  position: relative;
+  width: 440px;
+  height: 440px;
+  justify-self: center;
+  margin-top: -10px;
+}
+
+/* Base capsule: a long rounded rectangle rotated -45° (diagonal).
+   translate(-50%,-50%) makes left/top refer to the capsule's center. */
+.cap {
+  position: absolute;
+  width: 270px;
+  height: 120px;
+  border: 6px solid var(--teal);         /* teal border creates the gaps between capsules */
+  border-radius: 999px;
+  overflow: hidden;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  /* Use --img (your photo) if set, otherwise fall back to the placeholder --g */
+  background: var(--img, var(--g));
+  background-size: cover;
+  background-position: center;
+}
+
+/* Individual capsules: position (left/top) + placeholder color (--g) */
+.c1 { left: 170px; top: 110px;
+      --g: radial-gradient(circle at 35% 60%, #8a7b72 0 22%, transparent 23%),
+           linear-gradient(135deg, #d9e2e6, #eef2f4); }
+.c2 { left: 305px; top: 165px; width: 300px;
+      --g: radial-gradient(circle at 60% 55%, #e8b890 0 20%, #e9c76a 21% 34%, transparent 35%),
+           linear-gradient(135deg, #e6ecef, #f4f6f7); }
+.c3 { left: 105px; top: 270px; width: 250px;
+      --g: linear-gradient(135deg, #7fa6dc, #5f89c6); }          /* blue scrubs */
+.c4 { left: 345px; top: 290px; width: 240px;
+      --g: radial-gradient(circle at 55% 50%, #efc9a6 0 18%, transparent 19%),
+           linear-gradient(135deg, #e9edf0, #fafbfb); }
+.c5 { left: 195px; top: 345px; width: 170px; height: 130px;
+      --g: linear-gradient(135deg, #f2d9c4, #d9a88a); }          /* small skin-tone capsule */
+.c6 { left: 335px; top: 390px; width: 250px;
+      --g: linear-gradient(135deg, #a9d3dc, #cfe8ec); }
+
+/* Small decorative circles */
+.dot { position: absolute; width: 22px; height: 22px; border-radius: 50%; }
+.d1 { left: 14px;  top: 178px;  background: #7ea2dc; }   /* blue  */
+.d2 { right: 18px; top: 94px;   background: #c9d1d3; }   /* grey  */
+.d3 { left: 100px; bottom: 20px; background: #b5744f; }  /* brown */
+
+
+/* ---8. About Section--- */
+.About p em{
+  font-family: "Inter", sans-serif;
+  color: var(--yellow);
+}
+h2{
+  font-size: 45px;
+  font-family: "Inter", sans-serif;
+}
+h2 span{
+  font-family: "Inter", sans-serif;
+  color: var(--yellow);
+}
+.para {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.6;
+}
+/* Changed*/
+.About{
+  /* CHANGED: position + z-index keep the section above the decorative .waves layer */
+  position: relative;
+  z-index: 1;
+  padding-top: 10px;
+  /* CHANGED: was 700px (your temporary spacer). Real content now fills the space, so 80px is enough */
+  padding-bottom: 50px;
+}
+
+/* CHANGED: NEW two-column layout: left (text + steps) | right (image) */
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items:end;   /* image column stretches to the full height of the left column */
+}
+
+/* CHANGED: NEW row holding the number buttons (left) and the content card (right) */
+.steps {
+  display: flex;
+  align-items: stretch;
+  gap: 24px;
+  margin-top: 32px;
+}
+
+/* CHANGED: NEW vertical column of buttons */
+.step-nav {
+  position: relative;      /* anchors the vertical line drawn by ::before */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+/* CHANGED: the thin vertical line running behind the circles (from your sketch) */
+.step-nav::before {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 50%;
+  width: 2px;
+  background: rgba(255, 255, 255, .25);
+  transform: translateX(-50%);
+}
+
+/* CHANGED: NEW round number button. Inactive = teal with yellow ring, active = filled yellow */
+.step-btn {
+  position: relative;      /* sits on top of the line */
+  width: 48px; height: 48px;
+  border: 2px solid var(--yellow);
+  border-radius: 50%;
+  background: var(--teal);
+  color: var(--yellow);
+  font: 500 18px "Inter", sans-serif;
+  cursor: pointer;
+  transition: background .2s, color .2s, transform .15s;
+}
+.step-btn:hover { transform: scale(1.08); }
+.step-btn.active { background: var(--yellow); color: var(--teal); }
+.step-btn:focus-visible { outline: 3px solid var(--white); outline-offset: 3px; }  /* keyboard users */
+
+/* CHANGED: NEW yellow content card (the "content" box in your sketch) */
+.step-panels {
+  flex: 1;
+  min-height: 240px;
+  padding: 28px 32px;
+  border-radius: 28px;
+  background: var(--yellow);
+  color: var(--teal);
+}
+.step-panel[hidden] { display: none; }   /* CHANGED: makes sure hidden panels really disappear */
+.step-panel { animation: stepFade .25s ease; }   /* CHANGED: small fade so the swap doesn't feel abrupt */
+.step-panel h3 {
+  margin: 0 0 12px;
+  font: 600 24px "Inter", sans-serif;
+}
+.step-panel p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+@keyframes stepFade {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* CHANGED: NEW image box (the "image" box in your sketch).
+   Set --img inline to use a real photo; until then the gradient is a placeholder */
+.about-image {
+  min-height: 420px;
+  border-radius: 32px;
+  
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  
+}
+.about-image img{
+  max-width: 100%;
+  height: auto;
+  display: block;
+
+}
+
+/* --Section Services-- */
+.Services{
+  position: relative;
+  z-index: 1;
+  padding-top: 10px;
+  padding-bottom: 50px;
+}
+p em{
+  font-family: "Inter", sans-serif;
+  color: var(--yellow);
+}
+
+/* SERVICES menu grid */
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.service-card {
+    background: #073f3e;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 28px 22px;
+    transition: 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    border-color: #f6d76d;
+}
+
+.service-icon {
+    width: 55px;
+    height: 55px;
+    background: #f6d76d;
+    color: #073f3e;
+    display: grid;
+    place-items: center;
+    border-radius: 15px;
+    font-size: 27px;
+    margin-bottom: 22px;
+}
+
+.service-card h3 {
+    font-size: 19px;
+    margin-bottom: 15px;
+}
+
+.service-card p {
+    color: #c5d9d5;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* --Team Section-- */
+.Team{
+  position: relative;
+  z-index: 1;
+  padding-top: 10px;
+  padding-bottom: 50px;
+
+}
+.containerteam{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  text-align: center;
+  justify-content: space-between;
+  
+}
+.Card {
+  display: inline-block;   /* places the two cards side by side */
+  width: 220px;
+  margin: 20px;
+  text-align: center;      /* centers the circle and text */
+  font-family:"Inter", sans-serif ;
+
+  
+}
+.Card h3{
+  color: var(--yellow);
+}
+
+.circle {
+  width: 200px;
+  height: 200px;           /* must equal width, or you get an oval */
+  border-radius: 50%;      /* this is what makes it a circle */
+  overflow: hidden;        /* clips the image to the circle */
+  margin: 0 auto 15px;     /* gap between circle and text */
+}
+
+.circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       /* fills the circle without stretching the image */
+}
+
+/* ---------- 10. REGISTRATION PAGE & DYNAMIC ROLE ELEMENTS (NEW) ---------- */
+.register {
+  position: relative;
+  z-index: 1;
+  padding-top: 10px;
+  padding-bottom: 50px;
+  box-sizing: border-box;
+}
+.Container-inside {
+    margin: auto auto;
+    width: 100%;
+    max-width: 979px;                
+    overflow-y: auto;               
+    background-color: #F7EED3;   
+    border-radius: 20px;           
+    padding: 32px 24px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    border: 1px solid #D8D2C0;
+}
+.Main-Container {
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 64px 0px 80px;
+}
+.section {
+  border: none;
+  padding: 0;
+  margin: 0 0 32px;
+}
+.section legend {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-weight: 540;
+  font-size: 17px;
+  color: #33513F;
+  padding: 0 0 14px;
+  margin-bottom: 18px;
+  width: 100%;
+  border-bottom: 1px dashed #D8D2C0;
+}
+.role-card-label{
+  font-family:"Inter", sans-serif;
+  font-size: 20px;
+}
+.section-no {
+  font-family: system-ui, sans-serif;
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 500;
+  color: #FBF9F3;
+  background: #33513F;
+  border-radius: 3px;
+  padding: 3px 6px;
+  letter-spacing: 0.04em;
+}
+
+/* NEW: Styles for role selection radio options inside the registration form */
+.role-card-label {
+  transition: all 0.2s ease;
+}
+.role-card-label:hover {
+  border-color: #33513F;
+  background: #fbf9f3 !important;
+}
+
+/* NEW: Styles for the dynamic expandable role sections (Family vs Elder) */
+.role-specific-box {
+  animation: fadeInBox 0.25s ease-in-out;
+}
+@keyframes fadeInBox {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.row {
+  display: grid;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+.row.two { grid-template-columns: 1fr 1fr; }
+.row.one { grid-template-columns: 1fr; }
+.row:last-child { margin-bottom: 0; }
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.field label {
+    font-family: "Jost", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #24385F;
+    letter-spacing: 0.01em;
+}
+.hint {
+  margin: 2px 0 0;
+  font-size: 11px;
+  color: #9C9584;
+}
+.phone-group {
+    display: flex;
+    gap: 8px;
+}
+.code-select {
+  flex: 0 0 92px;
+  padding-left: 10px;
+  padding-right: 26px;
+  background-position: right 8px center;
+}
+.phone-group input { flex: 1; }
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+input[type="password"],
+input[type="number"],
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14.5px;
+  color: #1F2937;
+  background: #fff;
+  border: 1.4px solid #D8D2C0;
+  border-radius: 4px;
+  padding: 11px 13px;
+  transition: border-color 0.15s ease, box-shadow 0.18s ease;
+}
+input::placeholder { color: #9C9584; }
+input:hover, select:hover { border-color: #C7BFA5; }
+input:focus, select:focus {
+  outline: none;
+  border-color: #9C9584;
+  box-shadow: 0 0 0 4px rgba(169, 129, 46, 0.16);
+}
+
+.card-foot {
+  margin-top: 8px;
+  padding-top: 26px;
+  border-top: 1px solid #D8D2C0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.stamp-note {
+  font-size: 11.5px;
+  color: #9C9584;
+  margin: 0;
+}
+.submit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #24385F;
+  color: #F3EFE1;
+  border: none;
+  font-family: "Jost", sans-serif;
+  font-weight: 600;
+  font-size: 14.5px;
+  padding: 13px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+  white-space: nowrap;
+}
+.submit-btn:hover { background: #1b2b48; }
+.submit-btn:active { transform: translateY(1px); }
+.submit-btn svg { transition: transform 0.15s ease; }
+.submit-btn:hover svg { transform: translateX(2px); }
+
+
+/* ---------- 8. RESPONSIVE ---------- */
+
+/* Tablet & mobile: stack columns, hide menu links */
+@media (max-width: 900px) {
+  .panel { padding: 0 22px; border-radius: 22px; }
+  nav { padding: 22px 0; }
+  .nav-links { display: none; }                 /* add a hamburger menu here if needed */
+
+  .hero { grid-template-columns: 1fr; gap: 34px; }   /* one column */
+
+  /* Shrink the collage so it fits narrow screens */
+  .cluster { height: 360px; transform: scale(.8); transform-origin: top center; }
+}
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}

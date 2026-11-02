@@ -1,0 +1,27 @@
+{
+  "name": "weconnect",
+  "version": "1.0.0",
+  "description": "WeConnect is a platform designed to keep elderly dementia patients and their families securely connected. We deliver comprehensive monthly reports combining caretaker insights with data analysis from our specialized cognitive games. To support daily care, the platform also tracks timely medication adherence and routine exercise practices.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karan-sharma-developer572/WeConnect.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/karan-sharma-developer572/WeConnect/issues"
+  },
+  "homepage": "https://github.com/karan-sharma-developer572/WeConnect#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "mongoose": "^9.11.4"
+  }
+}
