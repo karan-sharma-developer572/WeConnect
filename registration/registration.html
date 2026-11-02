@@ -1,19 +1,445 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>WeConnect - Registration</title>
-    <link rel="stylesheet" href="registration.css">
+  <meta charset="utf-8">
+  <!-- Makes the page scale correctly on phones -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WeConnect – Smart Elder Care & Family Support Platform</title>
+
+  <!-- Google Fonts: Pacifico (script headings/logo) + Roboto (body text) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+  <!-- All styling lives in this separate file (same folder) -->
+  <link rel="stylesheet" href="registration.css">
+  <!-- Favicon -->
+   <link rel="icon" type="image/png" href="image/Heart of Caring Companionship.png">
 </head>
+
 <body>
+  <!-- ===== MAIN PANEL: the big rounded dark-teal card that holds everything ===== -->
+  <main class="panel">
 
-    <!-- Your Registration Form -->
-    <form id="registrationForm">
-        <!-- Inputs here -->
-        <button type="submit">Register</button>
-    </form>
+    <!-- Decorative faint wave lines in the background (hidden from screen readers) -->
+    <div class="waves" aria-hidden="true"></div>
 
-    <!-- Linking your JS file here -->
-    <script src="registration.js"></script>
+    <!-- ===== NAVIGATION BAR ===== -->
+    <nav aria-label="Main">
+      <a class="logo" href="#home">
+        <img width="70" height="70" viewBox="0 0 24 24" fill="#fff" aria-hidden="true" src="image/Heart of Caring Companionship.png"/>
+        WeConnect
+      </a>
+
+      <!-- Page links. The "active" class highlights the current page with a dot -->
+      <div class="nav-links">
+        <a class="active" href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#team">Team</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#blogs">Blogs</a>
+      </div>
+
+      <!-- Top-right button: white pill with a dark circular arrow -->
+      <a class="btn" href="#contact">Contact us <i aria-hidden="true">›</i></a>
+    </nav>
+
+    <!-- ===== HERO SECTION: text on the left, image collage on the right ===== -->
+    <section class="hero" id="home">
+
+      <!-- LEFT COLUMN: badge, headline, intro text, call-to-action -->
+      <div>
+        <span class="badge"><b aria-hidden="true">★</b>Your #1 Care Partner</span>
+
+        <!-- <em> is styled in CSS as the yellow script-font text -->
+        <h1><em>WeConnect</em> Thoughtful care for every step of your life.</h1>
+
+        <p class="lead">Every moment matters when caring for someone with dementia. We’re here to make everyday life safer and easier through compassionate care, smart safety features, and real-time location tracking—helping seniors live with greater independence while giving families peace of mind.</p>
+
+        <!-- "lg" makes this button larger than the nav one -->
+        <a class="btn lg" href="#Register">Register Now <i aria-hidden="true">›</i></a>
+      </div>
+
+      <!-- RIGHT COLUMN: collage of 6 diagonal capsule shapes + 3 small dots.
+           TO USE REAL PHOTOS: add an inline style to any capsule, e.g.
+           <div class="cap c1" style="--img:url('images/doctor.jpg')"></div> -->
+      <div class="cluster" role="img" aria-label="A doctor examining a young patient">
+        <div class="cap c1"></div>
+        <div class="cap c2"></div>
+        <div class="cap c3"></div>
+        <div class="cap c4"></div>
+        <div class="cap c5"></div>
+        <div class="cap c6"></div>
+
+        <!-- Small decorative circles around the collage -->
+        <span class="dot d1"></span>
+        <span class="dot d2"></span>
+        <span class="dot d3"></span>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="About" id="about">
+      <!-- CHANGED: added .about-grid so the text + steps sit on the left and the image on the right (matches your sketch) -->
+      <div class="about-grid">
+ 
+        <!-- LEFT COLUMN: heading, paragraph, then the 1-2-3 steps -->
+        <div class="about-left">
+            <div class="desc" style="max-width: 700px;">
+              <p class="Context"><em>Problem Statement</em></p>
+              <h2>About <span>WeConnect</span></h2>
+              <div class="para">
+                Dementia is a progressive brain condition that affects memory, thinking, and the ability to carry out everyday activities. With millions of people affected worldwide, it is becoming a growing concern for older adults, families, and caregivers, highlighting the urgent need for better care, safety, and support.
+              </div>
+            </div>
+ 
+          <!-- CHANGED: NEW stepper. Left = vertical 1/2/3 buttons, right = content card.
+               role="tablist" / "tab" / "tabpanel" tells screen readers this is a tab-style switcher.
+               Replace the placeholder text in each panel with your own content. -->
+          <div class="steps">
+            <div class="step-nav" role="tablist" aria-label="About WeConnect steps" aria-orientation="vertical">
+              <!-- aria-controls links each button to its panel; the first one starts active -->
+              <button class="step-btn active" type="button" role="tab" id="tab-1" aria-controls="panel-1" aria-selected="true">1</button>
+              <button class="step-btn" type="button" role="tab" id="tab-2" aria-controls="panel-2" aria-selected="false" tabindex="-1">2</button>
+              <button class="step-btn" type="button" role="tab" id="tab-3" aria-controls="panel-3" aria-selected="false" tabindex="-1">3</button>
+            </div>
+ 
+            <div class="step-panels">
+              <!-- CHANGED: only panel 1 is visible at first; panels 2 and 3 use the "hidden" attribute.
+                   script.js toggles "hidden" when a button is clicked -->
+              <div class="step-panel" id="panel-1" role="tabpanel" aria-labelledby="tab-1">
+                <h3>The challenge</h3>
+                <p>Dementia slowly affects memory and orientation. Seniors can forget routines, medicines or the way home, and families worry when they can't be nearby.</p>
+              </div>
+              <div class="step-panel" id="panel-2" role="tabpanel" aria-labelledby="tab-2" hidden>
+                <h3>Our approach</h3>
+                <p>WeConnect combines real-time location tracking, safety alerts and gentle reminders, so seniors stay independent while caregivers stay informed.</p>
+              </div>
+              <div class="step-panel" id="panel-3" role="tabpanel" aria-labelledby="tab-3" hidden>
+                <h3>What it means for families</h3>
+                <p>Peace of mind for relatives, dignity for seniors, and one shared place where caregivers can coordinate care.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+        
+        <div class="about-image" role="img" aria-label="Caregiver supporting an older adult">
+          <img src="image/Dementia_Challenges__A_Senior_Care_Infographic-removebg-preview.png" alt="" srcset="">
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="Services" id="services">
+      <div class="desc" style="max-width: 700px;">
+              <p class="Context"><em>Solution</em></p>
+              <h2>Our <span>Services</span></h2>
+              <div class="para">
+                We believe that growing older should never mean losing independence or feeling disconnected. Our platform brings elderly people, family members and doctors together through one simple application.From medication reminders and mental wellness activities to emergency assistance and recovery monitoring, WeConnect provides reliable support while keeping families informed and connected.
+              </div>
+      </div>
+
+      <div class="services-grid">
+        <!-- SERVICE 1 -->
+        <div class="service-card">
+
+          <div class="service-icon">💊</div>
+
+          <h3>Smart Medicine Reminder</h3>
+
+          <p>
+            Timely medicine notifications and dose tracking
+            help elderly people follow their prescribed
+            medication schedules.
+          </p>
+
+        </div>
+        <!-- SERVICE 2 -->
+        <div class="service-card">
+
+          <div class="service-icon">🧠</div>
+
+          <h3>MindCare</h3>
+
+          <p>
+            Interactive memory games, puzzles and cognitive
+            activities encourage mental engagement and
+            support daily mental wellness.
+          </p>
+
+        </div>
+        <!-- SERVICE 3 -->
+        <div class="service-card">
+
+          <div class="service-icon">📍</div>
+
+          <h3>SafeHome</h3>
+
+          <p>
+            GPS-based home navigation, emergency SOS alerts
+            and location sharing help seniors stay safe
+            while travelling.
+          </p>
+
+        </div>
+        <!-- SERVICE 4 -->
+        <div class="service-card">
+
+          <div class="service-icon">🏥</div>
+
+          <h3>RecoveryTrack</h3>
+
+          <p>
+            Doctors and family members can review authorised
+            health updates, medication records and recovery
+            progress.
+          </p>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Team -->
+    <section class="Team" id="team">
+      <div class="desc" style="max-width: 700px; padding-bottom: 40px;">
+            <p class="Context"><em>Team</em></p>
+            <h2>Our <span>Team</span></h2>
+            <div class="para">
+              This our small team of 2 people, team is small but our Ambitions are High.
+            </div>
+      </div>
+      <div class="containerteam">
+        <div class="Card">
+
+          <div class="circle">
+            <img src="" alt=""/>
+          </div>
+          <h3>Karan Sharma</h3>
+          <p>2<sup>nd</sup> year Student of Computer Science and Technology, MAIT</p>
+        </div>
+        <div class="Card">
+
+          <div class="circle">
+            <img src="" alt=""/>
+          </div>
+          <h3>Abhishek Sharma</h3>
+          <p>2<sup>nd</sup> year Student of Computer Science and Technology, MAIT</p> 
+        </div>
+
+      </div>
+    </section>
+
+    <section class="register" id="Register">
+      <div class="desc" style="max-width: 700px;">
+            <p class="Context"><em>Registeration Page</em></p>
+            <h2>Let's Connect with <span>WeConnect</span></h2>
+            <div class="para">
+              One step toward Smart Care & Love
+            </div>
+      </div>
+      <div class="Main-Container">
+          <div class="Container-inside">
+              <form class="form-grid">
+                  <!-- Section 01 -->
+                  <fieldset class="section">
+                      <legend>
+                          <span class="section-no">01</span> Identity
+                      </legend>
+              
+                      <div class="row two">
+                          <div class="field">
+                              <label for="firstName">First name 
+                                  <span class="req">*</span>
+                              </label>
+                              <input type="text" id="firstName" name="firstName" placeholder="Karan" required>
+                          </div>
+                          <div class="field">
+                              <label for="lastName">Last name 
+                                  <span class="req">*</span>
+                              </label>
+                              <input type="text" id="lastName" name="lastName" placeholder="Sharma" required>
+                          </div>
+                      </div>
+              
+                      <div class="row one">
+                      <div class="field">
+                          <label for="dob">Date of birth 
+                              <span class="req">*</span>
+                          </label>
+                          <input type="date" id="dob" name="dob" required>
+                      </div>
+                      </div>
+                  </fieldset>
+
+                  <!-- SECTION 02 -->
+                  <fieldset class="section">
+                      <legend><span class="section-no">02</span> Contact</legend>
+              
+                      <div class="row two">
+                          <div class="field">
+                              <label for="email">Email address <span class="req">*</span></label>
+                              <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                              <p class="hint">We'll send your confirmation here.</p>
+                          </div>
+                          <div class="field">
+                              <label for="phone">Phone number <span class="req">*</span></label>
+                              <div class="phone-group">
+                                  <select id="phoneCode" name="phoneCode" class="code-select" aria-label="Country code">
+                                      <option value="+91" selected>🇮🇳 +91</option>
+                                      <option value="+1">🇺🇸 +1</option>
+                                      <option value="+44">🇬🇧 +44</option>
+                                      <option value="+61">🇦🇺 +61</option>
+                                  </select>
+                                  <input type="tel" id="phone" name="phone" placeholder="98765 43210" required>
+                              </div>
+                          </div>
+                      </div>
+                  </fieldset>
+
+                  <!-- SECTION 03 -->
+                  <fieldset class="section">
+                      <legend><span class="section-no">03</span> Address</legend>
+              
+                      <div class="row one">
+                      <div class="field">
+                          <label for="address1">Street address <span class="req">*</span></label>
+                          <input type="text" id="address1" name="address1" placeholder="House no., street, locality" required>
+                      </div>
+                      </div>
+              
+                      <div class="row one">
+                      <div class="field">
+                          <label for="address2">Address line 2 <span class="optional">(optional)</span></label>
+                          <input type="text" id="address2" name="address2" placeholder="Apartment, floor, landmark">
+                      </div>
+                      </div>
+              
+                      <div class="row two">
+                      <div class="field">
+                          <label for="city">City / Town <span class="req">*</span></label>
+                          <input type="text" id="city" name="city" placeholder="New Delhi" required>
+                      </div>
+                      <div class="field">
+                          <label for="state">State / Region <span class="req">*</span></label>
+                          <input type="text" id="state" name="state" placeholder="Delhi" required>
+                      </div>
+                      </div>
+              
+                      <div class="row two">
+                      <div class="field">
+                          <label for="zip">Zip / Postal code <span class="req">*</span></label>
+                          <input type="text" id="zip" name="zip" placeholder="110045" required>
+                      </div>
+                      <div class="field">
+                          <label for="country">Country <span class="req">*</span></label>
+                          <select id="country" name="country" required>
+                          <option value="" disabled selected>Select country</option>
+                          <option value="IN">India</option>
+                          <option value="US">United States</option>
+                          <option value="GB">United Kingdom</option>
+                          <option value="AU">Australia</option>
+                          <option value="CA">Canada</option>
+                          <option value="OTHER">Other</option>
+                          </select>
+                      </div>
+                      </div>
+                  </fieldset>
+
+                  <!-- SECTION 04: Role Selection (NEW FEATURE) -->
+
+                  <fieldset class="section">
+                      <legend><span class="section-no">04</span> Account Role & Care Setup</legend>
+                      
+                      <div class="field" style="margin-bottom: 20px;">
+                          <label>Select your registration profile <span class="req">*</span></label>
+                          <div class="role-selection-group" style="display: flex; gap: 15px; margin-top: 8px;">
+                              <label class="role-card-label" style="flex: 1; padding: 14px; border: 1.4px solid #D8D2C0; border-radius: 6px; background: #fff; cursor: pointer;">
+                                  <input type="radio" name="userRole" value="family" id="roleFamily" onclick="toggleRolePath('family')" required> 
+                                  <strong>Family Caregiver</strong>
+                                  <p style="font-size: 12px; color: #666; margin: 4px 0 0;">Manage geofences, dashboard settings, and safety alerts.</p>
+                              </label>
+                              <label class="role-card-label" style="flex: 1; padding: 14px; border: 1.4px solid #D8D2C0; border-radius: 6px; background: #fff; cursor: pointer;">
+                                  <input type="radio" name="userRole" value="elder" id="roleElder" onclick="toggleRolePath('elder')" required> 
+                                  <strong>Elder Patient</strong>
+                                  <p style="font-size: 12px; color: #666; margin: 4px 0 0;">Setup SOS contacts, memory care stage, and live tracker.</p>
+                              </label>
+                          </div>
+                      </div>
+
+                      <!-- DYNAMIC SECTION A: Family Caregiver Specific Fields -->
+                      <div id="familySection" class="role-specific-box" style="display: none; background: rgba(51, 81, 63, 0.05); padding: 16px; border-radius: 6px; border-left: 4px solid #33513F; margin-top: 15px;">
+                          <h4 style="margin-top: 0; color: #33513F; font-size: 15px;">Caregiver Configuration</h4>
+                          
+                          <div class="row two" style="margin-top: 12px;">
+                              <div class="field">
+                                  <label for="caregiverPin">Security PIN (4 digits for Dashboard Access)</label>
+                                  <input type="password" id="caregiverPin" name="caregiverPin" maxlength="4" placeholder="e.g. 1234">
+                              </div>
+                              <div class="field">
+                                  <label for="geofenceRadius">Safe Zone Geofence Radius (Meters)</label>
+                                  <input type="number" id="geofenceRadius" name="geofenceRadius" value="500" min="100" max="5000">
+                              </div>
+                          </div>
+                      </div>
+
+                      <!-- DYNAMIC SECTION B: Elder Patient Specific Fields -->
+                      <div id="elderSection" class="role-specific-box" style="display: none; background: rgba(51, 81, 63, 0.05); padding: 16px; border-radius: 6px; border-left: 4px solid #33513F; margin-top: 15px;">
+                          <h4 style="margin-top: 0; color: #33513F; font-size: 15px;">Memory Care & Emergency Setup</h4>
+                          
+                          <div class="row two" style="margin-top: 12px;">
+                              <div class="field">
+                                  <label for="sosContactPrimary">Primary SOS Emergency Phone <span class="req">*</span></label>
+                                  <input type="tel" id="sosContactPrimary" name="sosContactPrimary" placeholder="Emergency contact number">
+                              </div>
+                              <div class="field">
+                                  <label for="preferredName">Preferred Nickname / Calling Name</label>
+                                  <input type="text" id="preferredName" name="preferredName" placeholder="e.g. Grandpa John">
+                              </div>
+                          </div>
+
+                          <div class="row one" style="margin-top: 12px;">
+                              <div class="field">
+                                  <label for="dementiaStage">Dementia / Memory Care Stage</label>
+                                  <select id="dementiaStage" name="dementiaStage">
+                                      <option value="early">Early Stage (Mild memory loss / Needs reminders)</option>
+                                      <option value="middle" selected>Middle Stage (Moderate / Safe-zone tracking needed)</option>
+                                      <option value="late">Late Stage (High assistance / Simplified interface)</option>
+                                  </select>
+                              </div>
+                          </div>
+                      </div>
+
+                  </fieldset>
+
+
+                  <footer class="card-foot">
+                      <p class="stamp-note">Ink-stamped fields save automatically as you fill them.</p>
+                      <button type="submit" class="submit-btn">
+                      Continue
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                      </button>
+                  </footer>
+
+              
+              </form>
+          </div>
+
+      </div>
+
+    </section>
+
+
+ 
+  </main>
+  <script src="registration.js"></script>
 </body>
 </html>
